@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glace Shalom International Church</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-in-out',
+                        'slide-up': 'slideUp 1s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .dark .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80');
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .sticky-nav.scrolled {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .dark .sticky-nav.scrolled {
+            box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(255, 255, 255, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 font-sans text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav id="navbar" class="sticky-nav bg-white dark:bg-gray-800 py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="https://via.placeholder.com/50x50.png?text=GSIC" alt="Glace Shalom Logo" class="h-12 w-12 mr-3">
+                <a href="#" class="text-xl font-bold text-gray-800 dark:text-white font-serif">Glace Shalom</a>
+            </div>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Home</a>
+                <a href="#about" class="hover:text-blue-600 dark:hover:text-blue-400 transition">About</a>
+                <a href="#services" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Services</a>
+                <a href="#events" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Events</a>
+                <a href="#pastor" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Pastor</a>
+                <a href="#contact" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Contact</a>
+                <a href="#testimonies" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full transition">Testimonies</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+                
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-gray-800 px-4 py-2">
+            <div class="flex flex-col space-y-3">
+                <a href="#home" class="hover:text-blue-600 dark:hover:text-blue-400 transition py-2">Home</a>
+                <a href="#about" class="hover:text-blue-600 dark:hover:text-blue-400 transition py-2">About</a>
+                <a href="#services" class="hover:text-blue-600 dark:hover:text-blue-400 transition py-2">Services</a>
+                <a href="#events" class="hover:text-blue-600 dark:hover:text-blue-400 transition py-2">Events</a>
+                <a href="#pastor" class="hover:text-blue-600 dark:hover:text-blue-400 transition py-2">Pastor</a>
+                <a href="#contact" class="hover:text-blue-600 dark:hover:text-blue-400 transition py-2">Contact</a>
+                <a href="#testimonies" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full transition text-center">Testimonies</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-screen flex items-center justify-center text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 font-serif animate-fade-in">Glace Shalom International Church</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto animate-fade-in">Changing lives, changing nations and changing the whole world. The Mwasiyambiri Generation — a Family.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#services" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-medium transition animate-slide-up">Join Our Services</a>
+                <a href="#contact" class="bg-transparent hover:bg-white hover:text-gray-900 text-white border-2 border-white px-8 py-3 rounded-full text-lg font-medium transition animate-slide-up">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">About Our Church</h2>
+                <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <p class="text-lg max-w-3xl mx-auto">Glace Shalom International Church is a vibrant community of believers dedicated to transforming lives through the power of the Gospel.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-lg hover:shadow-xl transition reveal">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-cross"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Our Mission</h3>
+                    <p>To preach the Gospel, make disciples, and impact nations with the love of Christ.</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-lg hover:shadow-xl transition reveal">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Our Vision</h3>
+                    <p>To raise a generation that reflects God's glory and transforms communities worldwide.</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-lg hover:shadow-xl transition reveal">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-hands-praying"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Our Values</h3>
+                    <p>Faith, Love, Integrity, Excellence, and Service are the core values that guide our ministry.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">Our Services</h2>
+                <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <p class="text-lg max-w-3xl mx-auto">Join us for powerful worship, life-changing messages, and fellowship with other believers.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition reveal">
+                    <div class="h-48 bg-blue-600 flex items-center justify-center">
+                        <i class="fas fa-sun text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Sunday Service</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">8:00 AM - 12:00 PM</p>
+                        <p>Our main weekly worship service with powerful preaching, worship, and communion.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition reveal">
+                    <div class="h-48 bg-purple-600 flex items-center justify-center">
+                        <i class="fas fa-moon text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Wednesday Bible Study</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">6:00 PM - 8:00 PM</p>
+                        <p>Midweek deep dive into God's Word with practical applications for daily living.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition reveal">
+                    <div class="h-48 bg-green-600 flex items-center justify-center">
+                        <i class="fas fa-fire text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Friday Prayer Night</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">7:00 PM - 9:00 PM</p>
+                        <p>Powerful night of prayer, intercession, and spiritual warfare.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="py-20 bg-gray-50 dark:bg-slate-900">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="section-title text-3xl md:text-4xl font-bold text-purple-800 dark:text-purple-400 mb-4">
+        Upcoming Events
+      </h2>
+      <div class="w-24 h-1 bg-purple-600 mx-auto mb-6"></div>
+      <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        Mapemphero Apa Phiri
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Event 1 -->
+      <div class="event-card bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
+        <div class="relative">
+          <img src="photo_local.jpg" alt="Prophetic Encounter">
+          <div class="absolute top-4 right-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+            Past Event
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200">
+              Mapemphero Apa Phiri
+            </h3>
+            <div class="text-purple-600 dark:text-purple-400">
+              <i class="fas fa-calendar-alt"></i>
+              <span class="ml-1 text-sm">March, 23</span>
+            </div>
+          </div>
+          <div class="flex items-center text-gray-600 dark:text-gray-400 mb-4">
+            <i class="fas fa-clock mr-2"></i>
+            <span>8:00 AM - 3:00 PM</span>
+          </div>
+          <div class="flex items-center text-gray-600 dark:text-gray-400 mb-4">
+            <i class="fas fa-map-marker-alt mr-2"></i>
+            <span>Glace Shalom International, Mwadza</span>
+          </div>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">
+            One on One Prayer With The Man of God
+          </p>
+          <a href="#" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded transition">
+            Register Now
+          </a>
+        </div>
+      </div>
+
+      <!-- Event 2 -->
+      <div class="event-card bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
+        <div class="relative">
+          <img src="local_photo.jpg" alt="The Awakening">
+          <div class="absolute top-4 right-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+            Past Event
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200">
+              Tuesday Service
+            </h3>
+            <div class="text-purple-600 dark:text-purple-400">
+              <i class="fas fa-calendar-alt"></i>
+              <span class="ml-1 text-sm">June 10</span>
+            </div>
+          </div>
+          <div class="flex items-center text-gray-600 dark:text-gray-400 mb-4">
+            <i class="fas fa-clock mr-2"></i>
+            <span>12 - 3 PM to 5:00 PM </span>
+          </div>
+          <div class="flex items-center text-gray-600 dark:text-gray-400 mb-4">
+            <i class="fas fa-map-marker-alt mr-2"></i>
+            <span>Mbayani Msika Wanjala Pankhosa</span>
+          </div>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">
+            Return Of Blantyre.
+          </p>
+          <a href="#" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded transition">
+            Register Now
+          </a>
+        </div>
+      </div>
+
+      <!-- Event 3 -->
+      <div class="event-card bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
+        <div class="relative">
+          <img src="school_photo.jpg" alt="School of the Prophets">
+          <div class="absolute top-4 right-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+            Past Event
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200">
+              Holy Communion &  Feet Washing Service
+            </h3>
+            <div class="text-purple-600 dark:text-purple-400">
+              <i class="fas fa-calendar-alt"></i>
+              <span class="ml-1 text-sm">April 27</span>
+            </div>
+          </div>
+          <div class="flex items-center text-gray-600 dark:text-gray-400 mb-4">
+            <i class="fas fa-clock mr-2"></i>
+            <span>9:00 AM - 3:00 PM</span>
+          </div>
+          <div class="flex items-center text-gray-600 dark:text-gray-400 mb-4">
+            <i class="fas fa-map-marker-alt mr-2"></i>
+            <span>Glace Shalom International</span>
+          </div>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">
+            Brings you extraordinary prophetic service.
+          </p>
+          <a href="#" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded transition">
+            Register Now
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-12">
+      <a href="#" class="inline-block border-2 border-purple-600 text-purple-600 dark:text-purple-400 dark:border-purple-400 hover:bg-purple-600 hover:text-white dark:hover:bg-purple-400 dark:hover:text-gray-900 font-bold py-3 px-8 rounded-full transition">
+        View All Events
+      </a>
+    </div>
+  </div>
+</section>
+
+    <!-- Pastor Section -->
+    <section id="pastor" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">Meet Our Pastor</h2>
+                <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <p class="text-lg max-w-3xl mx-auto">God has blessed us with a visionary leader who is passionate about seeing lives transformed by the Gospel.</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/3 reveal">
+                    <img src="photo1.jpg" alt="Apostle Mathew Mwasiyambiri Jumah " class="w-full rounded-lg shadow-xl">
+                </div>
+                
+                <div class="lg:w-2/3 reveal">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4 font-serif">Apostle Mathew Mwasiyambiri Jumah </h3>
+                    <p class="text-lg mb-6">Founder and President of Glace Shalom International Church</p>
+                    
+                    <div class="prose dark:prose-invert max-w-none">
+                        <p class="mb-4">Apostle Mathew Mwasiyambiri Jumah  is a dynamic preacher, teacher, and visionary leader with a passion for seeing lives transformed by the power of God's Word. With over 15 years of ministry experience, he has dedicated his life to raising a generation that will impact nations for Christ.</p>
+                        
+                        <p class="mb-4">Under his leadership, Glace Shalom International Church has grown from a small Bible study group to a thriving international ministry with multiple campuses and outreach programs.</p>
+                        
+
+                        
+                    </div>
+
+                    
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <a href="https://web.facebook.com/profile.php?id=100063477589598" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-accent transition duration-300 flex items-center">
+                            <i class="fab fa-facebook-f mr-2"></i> Follow
+                        </a>
+                        <a href="#" class="flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+                            <i class="fas fa-book-open mr-2"></i> Read Sermons
+                        </a>
+                        <a href="https://web.facebook.com/profile.php?id=100063477589598&sk=videos" class="flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+                            <i class="fas fa-play mr-2"></i> Watch Messages
+                        </a>
+                        <a href="#" class="flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+                            <i class="fas fa-calendar mr-2"></i> Book Appointment
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonies Section -->
+    <section id="testimonies" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">Testimonies</h2>
+                <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <p class="text-lg max-w-3xl mx-auto">Hear what God is doing in the lives of people through our ministry.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-lg hover:shadow-xl transition reveal">
+                    <div class="text-yellow-400 text-2xl mb-4">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="mb-6 italic">"Glace Shalom changed my life completely. I came broken and lost, but through the ministry here, I found purpose and direction."</p>
+                    <div class="flex items-center">
+                        <img src="testimony.jpg" alt="Sarah" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Sarah M.</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Member since 2018</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-lg hover:shadow-xl transition reveal">
+                    <div class="text-yellow-400 text-2xl mb-4">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="mb-6 italic">"The marriage retreat saved our relationship. We were on the brink of divorce, but God used this ministry to restore our love."</p>
+                    <div class="flex items-center">
+                        <img src="testimony.jpg" alt="James" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">James & Linda T.</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Couples Ministry</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-lg hover:shadow-xl transition reveal">
+                    <div class="text-yellow-400 text-2xl mb-4">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="mb-6 italic">"I was healed of a chronic illness during one of the prayer nights. The power of God in this place is tangible!"</p>
+                    <div class="flex items-center">
+                        <img src="testimony.jpg" alt="Grace" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Grace W.</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Healing Testimony</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 reveal">
+                <a href="#" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-medium transition">Share Your Testimony</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">Contact Us</h2>
+                <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <p class="text-lg max-w-3xl mx-auto">We'd love to hear from you! Reach out with any questions, prayer requests, or to get connected.</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div class="reveal">
+                    <div class="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold mb-6">Send Us a Message</h3>
+                        <form>
+                            <div class="mb-4">
+                                <label for="name" class="block mb-2 font-medium">Your Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="email" class="block mb-2 font-medium">Email Address</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="subject" class="block mb-2 font-medium">Subject</label>
+                                <input type="text" id="subject" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="message" class="block mb-2 font-medium">Message</label>
+                                <textarea id="message" rows="5" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="reveal">
+                    <div class="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-lg h-full">
+                        <h3 class="text-xl font-bold mb-6">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="text-blue-600 text-xl mr-4 mt-1">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Our Location</h4>
+                                    <p>Mwanza, Blantyre, Malawi</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-blue-600 text-xl mr-4 mt-1">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Phone Number</h4>
+                                    <p>+265(0) 882 355  777</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-blue-600 text-xl mr-4 mt-1">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Email Address</h4>
+                                    <p>mathewmwasiyambirijumah@gmail.com </p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-blue-600 text-xl mr-4 mt-1">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Office Hours</h4>
+                                    <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
+                                    <p>Saturday: 9:00 AM - 1:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-bold mb-4">Connect With Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="https://web.facebook.com/profile.php?id=100063477589598" class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-pink-600 text-white flex items-center justify-center hover:bg-pink-700 transition">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-blue-400 text-white flex items-center justify-center hover:bg-blue-500 transition">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-bold mb-4">Find Us on Map</h4>
+                            <div class="h-64 w-full rounded-lg overflow-hidden">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2517.900040473837!2d34.99749417255111!3d-15.798234199966052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x18d8456aadbf8511%3A0xc7ce9be17de1142b!2sMwanza%20Malawi!5e1!3m2!1sen!2smw!4v1751035423077!5m2!1sen!2smw" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="https://via.placeholder.com/50x50.png?text=GSIC" alt="Glace Shalom Logo" class="h-12 w-12 mr-3">
+                        <span class="text-xl font-bold font-serif">Glace Shalom</span>
+                    </div>
+                    <p class="mb-4">Changing lives, changing nations and changing the whole world. The Mwasiyambiri Generation — a Family.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://web.facebook.com/profile.php?id=100063477589598" class="w-8 h-8 rounded-full bg-gray-700 hover:bg-blue-600 text-white flex items-center justify-center transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-gray-700 hover:bg-pink-600 text-white flex items-center justify-center transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-gray-700 hover:bg-blue-400 text-white flex items-center justify-center transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-gray-700 hover:bg-red-600 text-white flex items-center justify-center transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4 font-serif">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="hover:text-blue-400 transition">Home</a></li>
+                        <li><a href="#about" class="hover:text-blue-400 transition">About Us</a></li>
+                        <li><a href="#services" class="hover:text-blue-400 transition">Services</a></li>
+                        <li><a href="#events" class="hover:text-blue-400 transition">Events</a></li>
+                        <li><a href="#pastor" class="hover:text-blue-400 transition">Our Pastor</a></li>
+                        <li><a href="#contact" class="hover:text-blue-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4 font-serif">Ministries</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-blue-400 transition">Men's Ministry</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Women's Ministry</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Youth Ministry</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Children's Church</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Prison Ministry</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Missions</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4 font-serif">Newsletter</h4>
+                    <p class="mb-4">Subscribe to our newsletter to receive updates and inspiration.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg focus:outline-none text-gray-900 w-full">
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-r-lg transition">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-700 text-center">
+                <p>&copy; 2025 Glace Shalom International Church. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Sticky navbar on scroll
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
